@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Autor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Autor</h1>
+        <form action="/add_autor" method="POST">
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="text" name="nacionalidad" placeholder="Nacionalidad" required>
+            <button type="submit">Guardar</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <h2>Lista de Autores</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Nacionalidad</th>
+                    <th>Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for autor in autores %}
+                <tr>
+                    <td>{{ autor[1] }}</td>
+                    <td>{{ autor[2] }}</td>
+                    <td>
+                        <a href="{{ url_for('delete_autor', id=autor[0]) }}">Eliminar</a>
+                        <a href="{{ url_for('edit_autor', id=autor[0]) }}">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

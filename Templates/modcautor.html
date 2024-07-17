@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Autor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Modificar Autor</h1>
+        <form action="/edit/{{ autor[0] }}" method="POST">
+            <input type="text" name="nombre" placeholder="Nombre" value="{{ autor[1] }}" required>
+            <input type="text" name="nacionalidad" placeholder="Nacionalidad" value="{{ autor[2] }}" required>
+            <button type="submit">Guardar Cambios</button>
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
